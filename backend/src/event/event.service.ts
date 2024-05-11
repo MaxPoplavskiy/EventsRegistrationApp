@@ -12,8 +12,13 @@ export class EventService {
     private participantService: ParticipantService
   ) {}
 
-  findAll() {
-    return this.eventRepository.find();
+  findPaginated(valuesPerPage: number, currentPage: number) {
+    const offset = valuesPerPage * currentPage;
+
+    return this.eventRepository.createQueryBuilder('events')
+    .offset(offset)
+    .limit(valuesPerPage)
+    .getMany();
   }
 
   find(id: number) {
@@ -23,7 +28,7 @@ export class EventService {
       },
       relations: {
         participants: true
-      }
+      },
     });
   }
 
