@@ -12,7 +12,6 @@ const pool = new Pool({
 });
 
 const sql = fs.readFileSync('./scripts/seed.sql').toString();
-console.log(sql);
 
 pool.query(sql)
   .then(() => {

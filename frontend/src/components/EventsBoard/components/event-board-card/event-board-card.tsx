@@ -9,7 +9,7 @@ function EventBoardCard({
     title,
     description,
     }: Properties) {
-    return <div className={styles.event_card__container}>
+    return <article className={styles.event_card__container}>
         <h2>
             {title}
         </h2>
@@ -25,7 +25,7 @@ function EventBoardCard({
                 View
             </p>
         </div>
-    </div>
+    </article>
 }
 
 export default EventBoardCard;
