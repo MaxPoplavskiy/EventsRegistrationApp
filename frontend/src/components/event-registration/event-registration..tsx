@@ -2,12 +2,14 @@ import { useCallback, useState } from 'react';
 import styles from './styles.module.scss';
 import Participant, { ParticipantSource } from '../../common/types/participant.type';
 import eventsRegistrationAppApi from '../../apis/events-registration-app/events-registration-app.api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
+import AppRoutes from '../../common/enums/app-routes.enum';
 
 function EventRegistrationPage() {
     const { id: eventId } = useParams();
+    const navigate = useNavigate();
 
     const [data, setData] = useState<Omit<Participant, 'id' | 'event'>>({
         fullName: "",
@@ -32,12 +34,13 @@ function EventRegistrationPage() {
 
     const registerParticipant = useCallback(() => {
         eventsRegistrationAppApi.registerParticipant(Number(eventId), data)
+        .then(() => navigate(AppRoutes.EVENT_ID(eventId)))
         .catch((error: AxiosError) => {
             for(const message of (error.response?.data as { message: string[] }).message) {
                 toast.error(message);
             }
         })
-    }, [eventId, data]);
+    }, [eventId, data, navigate]);
 
     return <main className={styles.registration_page__container}>
         <h1>
@@ -62,7 +65,7 @@ function EventRegistrationPage() {
         <p>
             Where did you hear about this event?
         </p>
-        <input type="radio" id={styles.radio_buttons__social_media} name="source" value={ParticipantSource.SocialMedia} onChange={handleSourceChange} />
+        <input defaultChecked type="radio" id={styles.radio_buttons__social_media} name="source" value={ParticipantSource.SocialMedia} onChange={handleSourceChange} />
         <label htmlFor={styles.radio_buttons__social_media}>Social media</label>
         <input type="radio" id={styles.radio_buttons__friends} name="source" value={ParticipantSource.Friends} onChange={handleSourceChange} />
         <label htmlFor={styles.radio_buttons__friends}>Friends</label>

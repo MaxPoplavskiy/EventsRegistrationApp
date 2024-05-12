@@ -38,7 +38,7 @@ function EventsBoardPage() {
         </h1>
         
         <p>Sort By</p>
-        <input type="radio" id={styles.radio_buttons__social_title} name="sort" value={EventsSort.Title} onChange={handleSourceChange} />
+        <input defaultChecked type="radio" id={styles.radio_buttons__social_title} name="sort" value={EventsSort.Title} onChange={handleSourceChange} />
         <label htmlFor={styles.radio_buttons__social_title}>{EventsSort.Title}</label>
         <input type="radio" id={styles.radio_buttons__date} name="sort" value={EventsSort.EventDate} onChange={handleSourceChange} />
         <label htmlFor={styles.radio_buttons__date}>{EventsSort.EventDate}</label>
