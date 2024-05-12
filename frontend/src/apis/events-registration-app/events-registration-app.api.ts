@@ -30,21 +30,16 @@ class EventsRegistrationAppApi {
     }
 
     async registerParticipant(eventId: number, participant: Omit<Participant, 'id' | 'event'>) {
-        try {
-            const response = await axios.post(
-                `${this.url}${ApiRoutes.REGISTER_PARTICIPANT(String(eventId))}`, 
-                JSON.stringify(participant),
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                  }
-            });
-            
-            return response.data;
-        }
-        catch(e) {
-            console.log(e);
-        }
+        const response = await axios.post(
+            `${this.url}${ApiRoutes.REGISTER_PARTICIPANT(String(eventId))}`, 
+            JSON.stringify(participant),
+        {
+            headers: {
+                'Content-Type': 'application/json'
+                }
+        });
+        
+        return response.data;
     }
 }
 

@@ -3,6 +3,8 @@ import styles from './styles.module.scss';
 import Participant, { ParticipantSource } from '../../common/types/participant.type';
 import eventsRegistrationAppApi from '../../apis/events-registration-app/events-registration-app.api';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 function EventRegistrationPage() {
     const { id: eventId } = useParams();
@@ -29,7 +31,12 @@ function EventRegistrationPage() {
     }, [updateData]);
 
     const registerParticipant = useCallback(() => {
-        eventsRegistrationAppApi.registerParticipant(Number(eventId), data);
+        eventsRegistrationAppApi.registerParticipant(Number(eventId), data)
+        .catch((error: AxiosError) => {
+            for(const message of (error.response?.data as { message: string[] }).message) {
+                toast.error(message);
+            }
+        })
     }, [eventId, data]);
 
     return <main className={styles.registration_page__container}>
@@ -65,6 +72,8 @@ function EventRegistrationPage() {
         <div>
             <button className={styles.register__button} onClick={registerParticipant}>Register</button>
         </div>
+
+        
     </main>;
 }
 

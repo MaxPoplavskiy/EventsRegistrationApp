@@ -6,6 +6,8 @@ import EventContext from "./common/contexts/events.context";
 import EventRegistrationPage from "./components/event-registration/event-registration.";
 import EventsBoardPage from "./components/events-board/events-board-page";
 import EventsViewPage from "./components/event-view/event-view";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 function App() {
@@ -17,7 +19,8 @@ function App() {
             <Route path={AppRoutes.EVENT_REGISTRATION()} element={<EventRegistrationPage />}></Route>
             <Route path={AppRoutes.EVENT_ID()} element={<EventsViewPage />}></Route>
         </Routes>
-    </EventContext.Provider> ;
+        <ToastContainer />
+    </EventContext.Provider>;
 }
 
 export default App;
