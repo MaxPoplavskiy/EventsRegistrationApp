@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import Event from "../types/event";
+import Event from "../types/event.type";
 
 type ContextValue = {
     events: Event[];

@@ -1,11 +1,15 @@
+import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
+import AppRoutes from '../../../../common/enums/app-routes.enum';
 
 type Properties = {
+    id: string,
     title: string,
     description: string,
 }
 
 function EventBoardCard({
+    id,
     title,
     description,
     }: Properties) {
@@ -18,9 +22,9 @@ function EventBoardCard({
         </p>
 
         <div className={styles.event_card__lower_body}>
-            <p>
+            <Link to={AppRoutes.EVENT_REGISTRATION(id)}>
                 Register
-            </p>
+            </Link>
             <p>
                 View
             </p>

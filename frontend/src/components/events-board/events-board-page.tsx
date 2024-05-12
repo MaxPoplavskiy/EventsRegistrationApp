@@ -30,7 +30,7 @@ function EventsBoardPage() {
         </h1>
         
         <main className={styles.events_board__container}>
-            {events.map((event) => <EventBoardCard title={event.title} description={event.description} />)}
+            {events.map((event) => <EventBoardCard id={String(event.id)} title={event.title} description={event.description} />)}
         </main>
 
         <aside className={styles.events_board__page_counter}>

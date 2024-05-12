@@ -1,4 +1,5 @@
-import { IsDateString, IsEmail, IsNotEmpty } from "class-validator";
+import { IsDateString, IsEmail, IsEnum, IsNotEmpty } from "class-validator";
+import { ParticipantSource } from "../entities/participant.entity";
 
 export class CreateParticipantDto {
     @IsNotEmpty()
@@ -9,4 +10,7 @@ export class CreateParticipantDto {
 
     @IsDateString()
     dateOfBirth: Date;
+
+    @IsEnum(ParticipantSource)
+    source: ParticipantSource;
 }

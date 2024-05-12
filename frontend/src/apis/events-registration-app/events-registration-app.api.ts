@@ -1,6 +1,7 @@
 import axios from 'axios'
 import ApiRoutes from './api-routes.enum';
 import ApiUrl from '../../common/enums/api-url.enum';
+import Participant from '../../common/types/participant.type';
 
 class EventsRegistrationAppApi {
     url: string;
@@ -15,13 +16,27 @@ class EventsRegistrationAppApi {
                 page,
                 eventsPerPage
             },
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            }
         });
         
         return response.data;
+    }
+
+    async registerParticipant(eventId: number, participant: Omit<Participant, 'id' | 'event'>) {
+        try {
+            const response = await axios.post(
+                `${this.url}${ApiRoutes.REGISTER_PARTICIPANT(String(eventId))}`, 
+                JSON.stringify(participant),
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                  }
+            });
+            
+            return response.data;
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
 }
 
