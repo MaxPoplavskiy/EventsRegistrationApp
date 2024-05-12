@@ -26,8 +26,6 @@ function EventsViewPage() {
     }, [eventId]);
 
     const filterParticipant = useCallback((participant: Participant) => {
-        console.log(fullName);
-        
         const fullNameMatch = participant.fullName.toLowerCase().includes(fullName.toLowerCase());
         const emailMatch = participant.email.toLowerCase().includes(email.toLowerCase());
         return fullNameMatch && emailMatch;

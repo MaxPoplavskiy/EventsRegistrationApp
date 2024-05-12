@@ -9,7 +9,40 @@ import EventsSort from "../../apis/events-registration-app/enums/events-sort.enu
 function EventsBoardPage() {
     const { events, setEvents } = useContext(EventContext);
     const [page, setPage] = useState<number>(0);
+    const [additionalPage, setAdditionalPage] = useState<number>(0);
     const [sort, setSort] = useState<EventsSort>(EventsSort.Title);
+
+    const [isBottom, setIsBottom] = useState(false);
+
+    useEffect(() => {
+      function handleScroll() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const isAtBottom = scrollTop + windowHeight >= documentHeight;
+  
+        setIsBottom(isAtBottom);
+      }
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
+    useEffect(() => {
+        (async function() {
+        if (isBottom) {
+            const responseEvents = await eventsRegistrationAppApi.getPaginatedEvents(EventsPerPage, page+additionalPage, sort);
+            setAdditionalPage((p) => p+1);
+            setIsBottom(false);
+            setEvents((e) => ([ ...e, ...responseEvents ]));
+        }})();
+    }, [setEvents, page, additionalPage, sort, isBottom]);
+
+    useEffect(() => {
+        setAdditionalPage(1);
+    }, [page]);
 
     const increasePage = useCallback(() => {
         setPage((p) => p+1);
@@ -46,7 +79,7 @@ function EventsBoardPage() {
         <label htmlFor={styles.radio_buttons__organizer}>{EventsSort.Organizer}</label>
 
         <main className={styles.events_board__container}>
-            {events.map((event) => <EventBoardCard id={String(event.id)} title={event.title} description={event.description} />)}
+            {Array.isArray(events) && events.map((event) => <EventBoardCard key={event.id} id={String(event.id)} title={event.title} description={event.description} />)}
         </main>
 
         <aside className={styles.events_board__page_counter}>
