@@ -1,3 +1,5 @@
+import Participant from "./participant.type";
+
 type Event = {
     id: number;
     title: string;
@@ -5,6 +7,7 @@ type Event = {
     description: string;
     eventDate: Date;
     organizer: string;
+    participants?: Participant[];
 }
 
 export default Event;

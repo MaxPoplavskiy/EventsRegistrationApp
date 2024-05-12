@@ -17,6 +17,13 @@ export class EventController {
     return this.eventService.findPaginated(eventsPerPage, page);
   }
 
+  @Get(':id')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  findEvent(@Param('id') id: number) {
+
+    return this.eventService.find(id);
+  }
+
   @Post(':id/register')
   @UsePipes(new ValidationPipe({ transform: true }))
   async register(@Param('id') id: number, @Body() participant: CreateParticipantDto) {

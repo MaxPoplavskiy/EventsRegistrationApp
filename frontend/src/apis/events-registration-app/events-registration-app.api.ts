@@ -21,6 +21,12 @@ class EventsRegistrationAppApi {
         return response.data;
     }
 
+    async getEvent(id: string) {
+        const response = await axios.get(`${this.url}${ApiRoutes.EVENT_ID(id)}`);
+        
+        return response.data;
+    }
+
     async registerParticipant(eventId: number, participant: Omit<Participant, 'id' | 'event'>) {
         try {
             const response = await axios.post(

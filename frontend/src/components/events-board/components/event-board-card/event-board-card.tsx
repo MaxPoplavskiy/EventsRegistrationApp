@@ -25,9 +25,9 @@ function EventBoardCard({
             <Link to={AppRoutes.EVENT_REGISTRATION(id)}>
                 Register
             </Link>
-            <p>
+            <Link to={AppRoutes.EVENT_ID(id)}>
                 View
-            </p>
+            </Link>
         </div>
     </article>
 }

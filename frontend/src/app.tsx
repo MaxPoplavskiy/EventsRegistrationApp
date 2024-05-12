@@ -5,6 +5,7 @@ import Event from "./common/types/event.type";
 import EventContext from "./common/contexts/events.context";
 import EventRegistrationPage from "./components/event-registration/event-registration.";
 import EventsBoardPage from "./components/events-board/events-board-page";
+import EventsViewPage from "./components/event-view/event-view";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
             <Route path={AppRoutes.ROOT} element={<EventsBoardPage />}></Route>
             <Route path={AppRoutes.EVENT_REGISTRATION()} element={<EventRegistrationPage />}></Route>
+            <Route path={AppRoutes.EVENT_ID()} element={<EventsViewPage />}></Route>
         </Routes>
     </EventContext.Provider> ;
 }
