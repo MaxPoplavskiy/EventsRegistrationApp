@@ -9,7 +9,7 @@ import EventsViewPage from "./components/event-view/event-view";
 
 
 function App() {
-    const [events, setEvents] = useState<Event[ ]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     return  <EventContext.Provider value={{events, setEvents}}>
         <Routes>

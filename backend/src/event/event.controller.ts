@@ -12,9 +12,9 @@ export class EventController {
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
   findPaginated(@Query() params: GetEventsPaginated) {
-    const { eventsPerPage, page } = params;
+    const { eventsPerPage, page, sort } = params;
     
-    return this.eventService.findPaginated(eventsPerPage, page);
+    return this.eventService.findPaginated(eventsPerPage, page, sort);
   }
 
   @Get(':id')

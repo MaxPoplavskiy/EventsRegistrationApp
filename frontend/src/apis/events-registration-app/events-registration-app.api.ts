@@ -1,7 +1,8 @@
 import axios from 'axios'
-import ApiRoutes from './api-routes.enum';
+import ApiRoutes from './enums/api-routes.enum';
 import ApiUrl from '../../common/enums/api-url.enum';
 import Participant from '../../common/types/participant.type';
+import EventsSort from './enums/events-sort.enum';
 
 class EventsRegistrationAppApi {
     url: string;
@@ -10,11 +11,12 @@ class EventsRegistrationAppApi {
         this.url = url;
     }
 
-    async getPaginatedEvents(eventsPerPage: number, page: number) {
+    async getPaginatedEvents(eventsPerPage: number, page: number, sort: EventsSort) {
         const response = await axios.get(`${this.url}${ApiRoutes.EVENT}`, {
             params: {
                 page,
-                eventsPerPage
+                eventsPerPage,
+                sort
             },
         });
         

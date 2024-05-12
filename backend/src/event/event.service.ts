@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { CreateParticipantDto } from 'src/participant/dto/create-participant.dto';
 import { ParticipantService } from 'src/participant/participant.service';
+import { EventsSort } from './dto/get-events-paginated.dto';
 
 @Injectable()
 export class EventService {
@@ -12,13 +13,24 @@ export class EventService {
     private participantService: ParticipantService
   ) {}
 
-  findPaginated(valuesPerPage: number, currentPage: number) {
+  findPaginated(valuesPerPage: number, currentPage: number, sort: EventsSort) {
     const offset = valuesPerPage * currentPage;
 
-    return this.eventRepository.createQueryBuilder('events')
+    let query = this.eventRepository.createQueryBuilder('events')
     .offset(offset)
-    .limit(valuesPerPage)
-    .getMany();
+    .limit(valuesPerPage);
+    
+    if(sort === EventsSort.Title) {
+      query = query.orderBy(EventsSort.Title, 'ASC');
+    } 
+    else if(sort === EventsSort.EventDate) {
+      query = query.orderBy(`"${EventsSort.EventDate}"`, 'ASC');
+    }
+    else if(sort === EventsSort.Organizer) {
+      query = query.orderBy(EventsSort.Organizer, 'ASC');
+    }
+
+    return query.getMany();
   }
 
   find(id: number) {
