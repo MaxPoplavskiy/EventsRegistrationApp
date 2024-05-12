@@ -1,5 +1,5 @@
 enum ApiUrl {
-    EventsRegistrationAppApiURL = 'http://localhost:3000'
+    EventsRegistrationAppApiURL = import.meta.env.VITE_EVENTS_REGISTRATION_API_URL
 }
 
 export default ApiUrl;
