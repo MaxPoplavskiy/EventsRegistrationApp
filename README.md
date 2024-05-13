@@ -23,7 +23,7 @@ Events board page: add infinite scroll pagination
 ## Frontend
 
 ```
-
+* .example.env into .env and fill variables
 * Install dependencies with npm i
 * npm run dev to start dev server
 
