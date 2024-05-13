@@ -1,6 +1,7 @@
 # Task
 Implemented Base and Middle levels fully 
 
+hosted(may take some time for server to answer) - https://eventsregistrationapp-1.onrender.com/
 ### Advanced level
 Events board page: add infinite scroll pagination
 
